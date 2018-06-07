@@ -1,0 +1,40 @@
+{
+    "manifest_version": 2,
+    "name": "FindLink",
+    "version": "0.1",
+    "description": "find link in web page",
+    "icons": {
+        "128": "default.png",
+        "48": "default.png",
+        "16": "default.png"
+    },
+    "content_scripts": [{
+        "run_at" :"document_end",
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": ["jquery.js","content.js" ],
+            "css": ["content.css"]
+
+
+        }
+
+    ],
+    "background": {
+        "scripts": ["background.js","jquery.js"],
+        "persistent": false
+    },
+    "options_page": "options.html",
+    "browser_action": {
+        "default_icon": "default.png",
+    "default_popup":"index.html",
+        "default_title": "Findlink"
+
+    },
+    "permissions": [
+        "tabs",
+        "https://*.embratoria.tv/",
+        "storage"
+    ]
+
+}
