@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.container, #url{
+width: 500px; 
+border: 1px solid #d6d7da; 
+padding: 0px 5px 5px 5px; 
+border-radius: 5px;font-family: arial; 
+color: #333333; font-size: 14px; 
+background: #ffffff;rgba(200,200,200,0.7) 0 4px 10px -1px;
+margin: 0px auto;
+float:left;
+clear: both;
+margin-top:10px;;
+}
+</style>
+<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+$( document ).ready(function() {
+    $( "#url" ).keyup(function() {
+
+	  var val=document.getElementById("url").value;
+	  if(val!="" && val.indexOf("://")>-1)
+	  {
+	    $('#loading').text('Loading...');
+		$('.container').hide();
+	    $.ajax({
+          type:'post',
+          url:'http://localhost/extractUrl/fetch_url.php',
+          data:{
+            link:val
+          },
+	      cache: false,
+	      success:function(response) {
+		    $('#loading').text('');
+			$('.container').show();
+			$('.container').html(response);
+		    
+          }
+          });
+	   }
+    });
+});
+</script>  
+</head>
+<body>  
+<h1>Skptricks Extract URL Data Like Facebook Using PHP,jQuery And Ajax</h1>
+<div>
+  <textarea id="url" placeholder="Enter Complete URL" ></textarea>
+  <div id="loading" style="clear:both;" ></div>
+  <div class="container" style="display:none;"></div>
+</div>
+
+</body>
+</html>
