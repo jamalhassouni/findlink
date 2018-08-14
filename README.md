@@ -14,4 +14,4 @@ go to your browser menu > More tools > Extensions
 1. Select Developer mode and choose LOAD UNPACKED then select folder of this extension
 2. In your localhost copy  folder extractUrl and past it in
 3. With your server running, visit the site`http://localhost/extractUrl/fetch_url.php?link=https://github.com/` To make sure it works
-
+4. When you verify that it works well, you can now click on the extension icon and type the link you want to search for in the site you are browsing.
