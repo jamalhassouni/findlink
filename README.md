@@ -1,9 +1,10 @@
-## description
+## Description
 
 I made this simple extension to search for links or a link within a particular web page and then some information about that page is fetched, such as the title and description of the page as well as the image
 
 
-
+### Requirements
+php and localhost server like xampp/wampp 
 ## Installing / Getting started
 To install this project you need to clone or download it.
 ```shell
