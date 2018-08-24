@@ -9,7 +9,8 @@
     });
 
     function LinkE() {
-        var arlink = [];
+        var arlink = [],
+            newstring = textString.replace(/www.|.com/g, '');
         var allLinks = document.links;
         for (var i = 0; i < allLinks.length; i++) {
             arlink.push(allLinks[i].href);
@@ -17,8 +18,9 @@
         var patterns = {
             // FUCK THESE 3 w's! >:(
             protocol: '^(http(s)?(:\/\/))?(www\.)?',
-            domain: '[empireshort_\.]+'
+            domain: `[${newstring}_\.]+`
         }; // /([www])?\.?((\w+)\.+)([a-zA-Z]{2,})/gi
+        console.log(patterns);
         arlink.forEach(function(url) {
             var p = patterns;
             var pattern = new RegExp(p.protocol + p.domain, 'gi');
@@ -26,7 +28,6 @@
             if (res) {
                 var found = '<span class="highlight">' + res[0] + '</span>';
                 var input = res.input;
-                console.log(input);
             }
         });
 
@@ -39,13 +40,10 @@
     function selectlink() {
 
         var els = document.querySelectorAll("a[href^='" + textString + "']");
-        console.clear();
         if (els.length > 0) {
             for (var i = 0, l = els.length; i < l; i++) {
                 var el = els[i];
                 ArrayLink.push(el.href);
-                console.log(el.href, el.textContent);
-
             }
         } else {
 
@@ -61,22 +59,21 @@
                 tagname = matchword[i].getElementsByTagName("span");
                 if (tagname[0].innerHTML.toUpperCase().indexOf(value) > -1) {
                     ArrayLink.push(matchword[i].textContent);
-                    console.log(matchword[i].textContent);
 
                 }
             }
         }
         filterSearch(textString);
-
-        function unique(list) {
-            var result = [];
-            $.each(list, function(i, e) {
-                if ($.inArray(e, result) == -1) result.push(e);
-            });
-            return result;
+        // to make unique key in array 
+        function unique(value, index, self) {
+            return self.indexOf(value) === index;
         }
+
+        ArrayLink = ArrayLink.filter(unique);
+        //  store links to local storage
         if (ArrayLink != '') {
-            chrome.storage.local.set({ 'links': JSON.stringify(unique(ArrayLink)) }, function() {});
+            console.log("array: ", ArrayLink);
+            chrome.storage.local.set({ 'links': JSON.stringify(ArrayLink) }, function() {});
         }
 
 
